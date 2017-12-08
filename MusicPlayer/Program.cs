@@ -151,16 +151,20 @@ namespace MusicPlayer
             int songDirection = 0;
             int songChangeLimit1 = 2;
             int songChangeLimit2 = 4;
+            int randomnumberPreSet = -5;
+            int userChoice;
+            int randomnumber = randomnumberPreSet;
             bool exiting = false;
             int index;
+            int overrideSongDirection = -10;
+            
 
             
 
-           
-
+        
             do
             {
-                while (songDirection == standardLimit || songDirection == 1)
+                while (songDirection == standardLimit || songDirection == 1 || randomnumber == 0)
                 {
                     index = 3;
 
@@ -170,24 +174,42 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
+                   
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 0 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
 
                     switch (songDirection)
-                    {
+                         {
                         case 1:
-                            songDirection = PlaylistLoopToLast(songDirection);
+                            songDirection = PlaylistLoopToLast(songDirection);     
                             break;
                         case 10:
                             exiting = true;
                             break;
                         default:
                             break;
-                    }
+                        }
+                   
                 }
 
                 Console.Clear();
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit1)
+                while (songDirection == standardLimit || songDirection == songChangeLimit1 || randomnumber == 1)
                 {
                     index = 4;
 
@@ -197,7 +219,25 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection += UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
+                    
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 1 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        randomnumber = randomnumberPreSet;
+                        songDirection = 2;
+                        songDirection += UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        
+                    }
 
                     switch (songDirection)
                     {
@@ -212,7 +252,7 @@ namespace MusicPlayer
 
                 Console.Clear();
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit2)
+                while (songDirection == standardLimit || songDirection == songChangeLimit2 || randomnumber == 2)
                 {
                     index = 5;
                     songDirection = 0;
@@ -223,7 +263,22 @@ namespace MusicPlayer
                     DisplayDiscography(songlistInfo, title, album, artist, year, index);
                     DisplayUserDirections();
 
-                    songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 2 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
 
                     switch (songDirection)
                     {
@@ -251,22 +306,26 @@ namespace MusicPlayer
                 /// <param name="songlist"></param>
                 static void PlayHappy(Moods userMood, List<SoundPlayer> songlist, List<String> title, List<String> album, List<String> artist, List<int> year, List<Discography> songlistInfo)
         {
+            int randomnumberPreSet = -5;
+            int randomnumber = randomnumberPreSet;
             int standardLimit = 0;
             int songDirection = 0;
             int songChangeLimit1 = 2;
             int songChangeLimit2 = 4;
+            int userChoice;
             bool exiting = false;
             int index = 0;
-
+            int overrideSongDirection = -10;
             
 
-            
 
-            
+
+
+
 
             do
             {
-                while (songDirection == standardLimit || songDirection == 1)
+                while (songDirection == standardLimit || songDirection == 1 || randomnumber == 0)
                 {
                     index = 0;
 
@@ -276,7 +335,23 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 0 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
+
 
                     switch (songDirection)
                     {
@@ -292,7 +367,7 @@ namespace MusicPlayer
 
                 }
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit1)
+                while (songDirection == standardLimit || songDirection == songChangeLimit1 || randomnumber == 1)
                 {
                     index = 1;
 
@@ -302,8 +377,23 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection += UserSongChange(userMood,title, album, artist, year, songlistInfo, index);
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
 
+                    if (userChoice == 3)
+                    {
+                        while ( randomnumber == 1 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {   randomnumber = randomnumberPreSet;
+                        songDirection = 2;
+                        songDirection += UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        
+                    }
                     switch (songDirection)
                     {
                         case 12:
@@ -315,7 +405,7 @@ namespace MusicPlayer
                     }
                 }
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit2)
+                while (songDirection == standardLimit || songDirection == songChangeLimit2 || randomnumber == 2)
                 {
                     index = 2;
 
@@ -328,8 +418,22 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection = UserSongChange(userMood,title, album, artist, year, songlistInfo, index);
-                    
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 2 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
                     switch (songDirection)
                     {
                         case 2:
@@ -356,18 +460,27 @@ namespace MusicPlayer
                 /// <param name="songlist"></param>
                 static void PlayInspired(Moods userMood, List<SoundPlayer> songlist, List<String> title, List<String> album, List<String> artist, List<int> year, List<Discography> songlistInfo)
         {
+
+            int randomnumberPreSet = -5;
+            int randomnumber = randomnumberPreSet;
             int standardLimit = 0;
             int songDirection = 0;
             int songChangeLimit1 = 2;
             int songChangeLimit2 = 4;
+            int userChoice;
             bool exiting = false;
             int index = 0;
-            
+            int overrideSongDirection = -10;
+
+
+
+
+
+
 
             do
             {
-
-                while (songDirection == standardLimit || songDirection == 1)
+                while (songDirection == standardLimit || songDirection == 1 || randomnumber == 0)
                 {
                     index = 6;
 
@@ -376,11 +489,25 @@ namespace MusicPlayer
                     DisplayUserDirections();
 
                     songlist[index].Play();
-                    
 
-                    songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
 
-                   
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 0 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
+
+
                     switch (songDirection)
                     {
                         case 1:
@@ -395,7 +522,7 @@ namespace MusicPlayer
 
                 }
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit1)
+                while (songDirection == standardLimit || songDirection == songChangeLimit1 || randomnumber == 1)
                 {
                     index = 7;
 
@@ -405,8 +532,24 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection += UserSongChange(userMood,title, album, artist, year, songlistInfo, index);
-                    
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 1 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        randomnumber = randomnumberPreSet;
+                        songDirection = 2;
+                        songDirection += UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+
+                    }
                     switch (songDirection)
                     {
                         case 12:
@@ -418,19 +561,35 @@ namespace MusicPlayer
                     }
                 }
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit2)
+                while (songDirection == standardLimit || songDirection == songChangeLimit2 || randomnumber == 2)
                 {
-                    songDirection = 0;
                     index = 8;
 
                     DisplayHeader($"Now Playing: {userMood} Playlist");
                     DisplayDiscography(songlistInfo, title, album, artist, year, index);
                     DisplayUserDirections();
 
+
+                    songDirection = 0;
+
                     songlist[index].Play();
 
-                    songDirection = UserSongChange(userMood,title, album, artist, year, songlistInfo, index);
-                    
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 2 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
                     switch (songDirection)
                     {
                         case 2:
@@ -447,6 +606,7 @@ namespace MusicPlayer
 
 
             } while (standardLimit == 0 && !exiting);
+
         }
 
                 /// <summary>
@@ -456,18 +616,26 @@ namespace MusicPlayer
                 /// <param name="songlist"></param>
                 static void PlayCalm(Moods userMood, List<SoundPlayer> songlist, List<String> title, List<String> album, List<String> artist, List<int> year, List<Discography> songlistInfo)
         {
+            int randomnumberPreSet = -5;
+            int randomnumber = randomnumberPreSet;
             int standardLimit = 0;
             int songDirection = 0;
             int songChangeLimit1 = 2;
             int songChangeLimit2 = 4;
+            int userChoice;
             bool exiting = false;
             int index = 0;
+            int overrideSongDirection = -10;
 
-            
+
+
+
+
+
 
             do
             {
-                while (songDirection == standardLimit || songDirection == 1)
+                while (songDirection == standardLimit || songDirection == 1 || randomnumber == 0)
                 {
                     index = 9;
 
@@ -477,7 +645,23 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
+
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 0 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
+
 
                     switch (songDirection)
                     {
@@ -493,7 +677,7 @@ namespace MusicPlayer
 
                 }
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit1)
+                while (songDirection == standardLimit || songDirection == songChangeLimit1 || randomnumber == 1)
                 {
                     index = 10;
 
@@ -503,35 +687,64 @@ namespace MusicPlayer
 
                     songlist[index].Play();
 
-                    songDirection += UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
-                    
-                   
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
 
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 1 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        randomnumber = randomnumberPreSet;
+                        songDirection = 2;
+                        songDirection += UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+
+                    }
                     switch (songDirection)
                     {
                         case 12:
                             exiting = true;
                             break;
                         default:
-                        songDirection = BackwardLoopConversion(songDirection);
+                            songDirection = BackwardLoopConversion(songDirection);
                             break;
                     }
-
                 }
 
-                while (songDirection == standardLimit || songDirection == songChangeLimit2)
-                    {
-                            songDirection = 0;
-                            index = 11;
+                while (songDirection == standardLimit || songDirection == songChangeLimit2 || randomnumber == 2)
+                {
+                    index = 11;
 
-                            DisplayHeader($"Now Playing: {userMood} Playlist");
-                            DisplayDiscography(songlistInfo, title, album, artist, year, index);
-                            DisplayUserDirections();
+                    DisplayHeader($"Now Playing: {userMood} Playlist");
+                    DisplayDiscography(songlistInfo, title, album, artist, year, index);
+                    DisplayUserDirections();
+
+
+                    songDirection = 0;
 
                     songlist[index].Play();
 
-                            songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index);
+                    userChoice = RetriveUserChoice(userMood, title, album, artist, year, songlistInfo, index);
 
+                    if (userChoice == 3)
+                    {
+                        while (randomnumber == 2 || userChoice == 3)
+                        {
+                            randomnumber = ShuffleConversion();
+                            songDirection = overrideSongDirection;
+                            userChoice = randomnumberPreSet;
+                        }
+                    }
+                    else
+                    {
+                        songDirection = UserSongChange(userMood, title, album, artist, year, songlistInfo, index, userChoice);
+                        randomnumber = randomnumberPreSet;
+                    }
                     switch (songDirection)
                     {
                         case 2:
@@ -545,9 +758,10 @@ namespace MusicPlayer
                             break;
                     }
                 }
-                    
-                
+
+
             } while (standardLimit == 0 && !exiting);
+
             
         }
         
@@ -560,34 +774,33 @@ namespace MusicPlayer
         /// </summary>
         /// <param name="userMood"></param>
         /// <returns>int</returns>
-        static int UserSongChange(Moods userMood, List<String> title, List<String> album, List<String> artist, List<int> year, List<Discography> songlistInfo, int index)
+        static int UserSongChange(Moods userMood, List<String> title, List<String> album, List<String> artist, List<int> year, List<Discography> songlistInfo, int index, int userChoice)
 
         {
-            int userChoice;
-
             int songDirection = 0;
 
             int backwards = 1;
 
             int forward = 2;
 
-             userChoice = RetriveUserChoice(userMood,title,album,artist,year,songlistInfo,index);
-
-                if (userChoice == 1)
-                {
-                    songDirection = backwards;
-                }
-                else if (userChoice == 2)
-                {
+         
+            switch (userChoice)
+            {
+                case 1 :
+                    songDirection = backwards;  
+                    break;
+                case 2 :
                     songDirection = forward;
-                }
-                else if (userChoice == 10)
-                {
+                    break;
+                case 10:
                     songDirection = 10;
-                }
-            
+                    break;
 
-            return songDirection;
+                    
+            }
+            
+                return songDirection;
+            
         }
 
             /// <summary>
@@ -599,7 +812,7 @@ namespace MusicPlayer
         {
             int userChoice;
 
-            while (!int.TryParse(Console.ReadLine(), out userChoice))
+            while (!int.TryParse(Console.ReadLine(), out userChoice) || userChoice == 4 || userChoice == 5 || userChoice == 6 || userChoice == 7 || userChoice == 8 || userChoice == 9)
             {
                 Console.Clear();
                 DisplayHeader($"Now Playing: {userMood} Playlist");
@@ -673,6 +886,21 @@ namespace MusicPlayer
             return songDirection;
         }
 
+        /// <summary>
+        /// The shuffle algorithim
+        /// </summary>
+        /// <returns></returns>
+        static int ShuffleConversion()
+        {
+            int songDirection = 0;
+
+            Random randomSongChoice = new Random();
+
+            int.TryParse(randomSongChoice.Next(3).ToString(), out songDirection);
+
+            return songDirection;
+        }
+
 
 
         // Styling Methods
@@ -682,7 +910,7 @@ namespace MusicPlayer
         /// </summary>
         static void DisplayUserDirections ()
         {
-            Console.WriteLine("\n\n\t\t\t\t   0. Restart Song | 1. Back | 2. Forward");
+            Console.WriteLine("\n\n\t\t   0. Restart Song | 1. Back | 2. Forward | 3.Random Song From Playlist (Shuffle) | 10. Exit");
         }
 
         /// <summary>
